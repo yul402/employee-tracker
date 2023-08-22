@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const mysql = require('mysql2');
+require('console.table')
 
 // Connect to database
 const db = mysql.createConnection(
@@ -108,6 +109,7 @@ function promptAddEmployee(){
             name: `${emp.first_name} ${emp.last_name}`, 
             value: emp.id
         }))
+        console.log(employeeList)
 
         db.query('SELECT * FROM role;',(err,result) => {
             if (err) throw err;
@@ -265,10 +267,11 @@ function promptUser() {
                 break;
             case "view all employees":
                 db.query(`
-                SELECT employee.id as employeeId,first_name,last_name,manager_id,role.title as job_title,salary,department.name as department_name 
+                SELECT employee.id, employee.first_name, employee.last_name, concat(manager.first_name, ' ', manager.last_name) as Managername, role.title as job_title,salary, department.name as department_name 
                 FROM employee 
                 LEFT JOIN role on employee.role_id = role.id 
-                LEFT JOIN department on department.id=role.department_id
+                LEFT JOIN department on role.department_id=department.id
+                LEFT JOIN employee AS manager ON manager.id = employee.manager_id;
                 `, (err, results) => {
                     if (err){
                         throw err;
