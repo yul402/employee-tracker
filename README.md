@@ -1,15 +1,20 @@
 # employee-tracker
 ![GitHub license](https://img.shields.io/badge/license-MIT-yellowgreen.svg)
 
-Walk-through Video: 
+Walk-through Video: https://watch.screencastify.com/v/yS1ViznMlLIaraGYa4tr
 
 ## Description
 
-In this project, a command-line application is built from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. This content management systems (CMS) will assist user to view and manage the departments, roles, and employees in company.
+In this project, a command-line application is built from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. This content management systems (CMS) will assist user to view and manage the departments, roles, and employees in company. 
+
+Schema for database is shown below:
+
+<img src="./Assets/Schema.png" width="400">
+
 
 ## Table of Contents
 
-* [Installation](#Installation)
+* [Installation](#installation)
 
 * [Technology](#technology)
 
@@ -40,22 +45,26 @@ Technology used:
 
 ## Usage
 - User can view all departments.
-![View deps](./Assets/view-deps.png)
+
+<img src="./Assets/view-deps.png" width="200">
 
 - User can view all roles.
-![View roles](./Assets/view-roles.png)
+
+<img src="./Assets/view-roles.png" width="400">
+
+
+- User can view all employees.
+
+<img src="./Assets/view-employees.png" width="400">
+
 
 - User can add a department.
-![Add dep](./Assets/add-dep.png)
 
 - User can add a role.
-![Add role](./Assets/add-role.png)
 
 - User can add an employee.
-![Add employee](./Assets/add-role.png)
 
 - User can update an employee role.
-![Update employee role](./Assets/update-employee-role.png)
 
 ## License
 

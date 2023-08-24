@@ -102,15 +102,15 @@ function promptAddRole(){
 // Prompt to add employee
 function promptAddEmployee(){
     // Calling the database to acquire the roles and managers
-    db.query(`SELECT * FROM employee LEFT JOIN role ON employee.role_id=role.id;`, (err, result) => {
+    db.query(`SELECT employee.*,role.id as role_id FROM employee LEFT JOIN role ON employee.role_id=role.id;`, (err, result) => {
         if (err) throw err;
 
-        const employeeList =  result.map((emp)=> ({
+        const managerList =  result.filter(emp => emp.role_id===5).map((emp)=> ({
             name: `${emp.first_name} ${emp.last_name}`, 
             value: emp.id
         }))
-        console.log(employeeList)
 
+        
         db.query('SELECT * FROM role;',(err,result) => {
             if (err) throw err;
             const roleList =  result.map((role)=> ({
@@ -160,7 +160,7 @@ function promptAddEmployee(){
                     type: 'list',
                     name: 'manager',
                     message: 'Who is your manager?',
-                    choices: employeeList
+                    choices: managerList
                 }
             ]).then((answers) => {
                 db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`, [answers.firstName, answers.lastName, answers.role, answers.manager], (err, result) => {
@@ -267,7 +267,7 @@ function promptUser() {
                 break;
             case "view all employees":
                 db.query(`
-                SELECT employee.id, employee.first_name, employee.last_name, concat(manager.first_name, ' ', manager.last_name) as Managername, role.title as job_title,salary, department.name as department_name 
+                SELECT employee.id, employee.first_name, employee.last_name, concat(manager.first_name, ' ', manager.last_name) as manager_name, role.title as job_title,salary, department.name as department_name 
                 FROM employee 
                 LEFT JOIN role on employee.role_id = role.id 
                 LEFT JOIN department on role.department_id=department.id
